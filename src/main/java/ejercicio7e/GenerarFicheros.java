@@ -39,7 +39,7 @@ public class GenerarFicheros {
         generarArchivoXML(listaFacturas, "./xml/facturas.xml");
 
         // Creo una carpeta facturascsv para guardas cada factura individual
-        String rutaIni = "./facturas.csv/";
+        String rutaIni = "./facturascsv/";
         String rutaFin = "";
         crearDirectorio(rutaIni);
         // Creo las facturas
