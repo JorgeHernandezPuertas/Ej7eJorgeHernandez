@@ -8,12 +8,23 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
 import java.util.stream.DoubleStream;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
  * @author jorge
  */
+
+// Anotación @XmlRootElement, nombre de la etiqueta XML raíz.
+@XmlRootElement(name = "factura")
+// Anotación @XmlAccesorType define el elemento que usará JAXB durante el 
+// procesamiento de datos (en este caso por atributo)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Factura {
     
     private static final double MIN_IMPORTE = 100, MAX_IMPORTE = 1000;
@@ -22,6 +33,7 @@ public class Factura {
     
     // atributos
     private String codigo;
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate fechaEmision;
     private String descripcion;
     private double totalImporteFactura;
@@ -33,7 +45,7 @@ public class Factura {
         this.descripcion = RandomStringUtils.randomAlphabetic(8);
         // Cojo un double aleatorio del doublestream que he generado con el rango
         this.totalImporteFactura = aleatorio.
-                doubles(1, MIN_IMPORTE, MIN_IMPORTE).
+                doubles(1, MIN_IMPORTE, MAX_IMPORTE).
                 findAny().getAsDouble();
     }
 
